@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArtemisCompanionV2.Pages.UpdatePage"
+             Title="Kernel Updates">
+
+    <ContentPage.Content>
+        <Grid Padding="10,20,10,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="DownloadButton" Padding="10,0,10,0" Text="Press to download" FontFamily="sans-serif" FontSize="15" Pressed="DownloadButton_OnPressed" Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand"/>
+            <Entry x:Name="PinEntry" Placeholder="Enter your pin here" PlaceholderColor="AntiqueWhite" TextColor="AntiqueWhite" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

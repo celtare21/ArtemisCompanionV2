@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31320.298
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtemisCompanionV2.Android", "ArtemisCompanionV2.Android\ArtemisCompanionV2.Android.csproj", "{5327F411-FFC6-41EE-AA21-3E01828007DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtemisCompanionV2", "ArtemisCompanionV2\ArtemisCompanionV2.csproj", "{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E0E182C-BB7B-4917-8594-DEB16AFFB009}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5327F411-FFC6-41EE-AA21-3E01828007DC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58E6965-FA58-4D7C-88FB-3C6BF07A2B73}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96C967CF-3BEF-4656-9071-17970D4F72F8}
+	EndGlobalSection
+EndGlobal

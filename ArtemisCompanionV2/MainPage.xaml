@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:ArtemisCompanionV2.Pages;assembly=ArtemisCompanionV2"
+       x:Class="ArtemisCompanionV2.MainPage">
+
+    <Shell.FlyoutHeader>
+        <StackLayout>
+            <Grid BackgroundColor="White" Padding="0, 30">
+                <Image Aspect="AspectFit" Source="artemis.png" />
+            </Grid>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <StackLayout Padding="10,20,10,20" Style="{StaticResource FloutItemStyle}">
+                <!--
+                ReSharper disable once XamlBindingWithoutMode
+                ReSharper disable once Xaml.BindingWithContextNotResolved
+                -->
+                <Label Text="{Binding Title}" TextColor="Black" VerticalOptions="Center" 
+                       HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" FontFamily="sans-serif"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem Title="Configs">
+        <Tab>
+            <ShellContent Title="Configs">
+                <pages:ConfigPage/>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Kernel updates">
+        <Tab>
+            <ShellContent Title="Kernel updates">
+                <pages:UpdatePage/>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Backup apps">
+        <Tab>
+            <ShellContent Title="Backup apps">
+                <pages:BackupPage/>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="About features">
+        <Tab>
+            <ShellContent Title="About features">
+                <pages:AboutPage/>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+</Shell>

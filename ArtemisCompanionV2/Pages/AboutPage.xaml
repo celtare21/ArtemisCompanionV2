@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArtemisCompanionV2.Pages.AboutPage"
+             Title="About features">
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="DNS Profiles"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Choose a DNS profile to be selected for the system."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="The options are: Disabled, Adguard, Cloudflare."/>
+
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="SU toggle"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Toggle this option to enable/disable in-kernel SU."/>
+
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Flasher toggle"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Toggle this option to flash a boot image."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="The boot image needs picked using the 'Image picker' feature."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="After you toggle it on, just reboot and wait."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Unlock your phone and after a bit the system will reboot and the image will be flashed."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Please wait for this to happen."/>
+
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Image picker"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Press the 'pick' button to select an image to flash."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Afterwards toggle the 'flasher toggle' to on and reboot your phone."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="The image will flash automatically after unlocking your phone."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Please select the image from 'Internal Storage', not from the 'Downloads' tab."/>
+
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Kernel updates"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Enter the file pin I provide then press the button."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Please don't leave the app while downloading or the download will be paused."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="After the file is downloaded, all you have to reboot."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="After unlock, the image will be flashed."/>
+
+                <Label Margin="0,30,0,10" TextDecorations="Underline" FontSize="23" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Backup apps"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Firstly, you need the 'Termux' app installed."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Run the app and install the dependencies needed in the Termux app."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="The command to do that is: 'pkg install -y tsu tar sed zstd openssl-tool pv curl' (you can copy it with the button below and paste in Termux)"/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Check the box that you have the dependencies installed."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Enter and confirm your password. You need to remember this password in order to restore (the backup will be encrypted)."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Press the 'backup' button to backup or 'restore' button to restore."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="After that, just reboot. Come back to this app to see if the backup or restore worked. The 'Status' text box will be changed to 'Completed' or 'Failed' depending if it worked."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="The backup location is '/sdcard/cbackup'."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="If you are going to wipe internal drive just keep a copy of this folder on your PC."/>
+                <Label FontSize="17" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="When you want to restore it copy it back to '/sdcard/cbackup'."/>
+                <Button x:Name="CopyButton" Padding="10,0,10,0" Text="Copy command" FontFamily="sans-serif" FontSize="15" Pressed="CopyButton_OnPressed" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

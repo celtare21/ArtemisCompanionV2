@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArtemisCompanionV2.Pages.BackupPage"
+             Title="Backup apps">
+
+<ContentPage.Content>
+        <Grid Padding="10,20,10,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Termux installed:" Padding="10,10,10,0" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="TermuxInstalled" Text="App not found!" Padding="10,13,10,0" FontSize="16" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Text="Termux deps:" Padding="10,15,10,0" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <CheckBox x:Name="DepsCheck" IsChecked="False" Margin="0,0,0,8"  VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+
+            <Label Text="Status:" Padding="10,15,10,0" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="Status" Text="Idle" Padding="10,17,10,0" FontSize="16" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+            
+            <Entry x:Name="PassEntry" Placeholder="Enter your password" PlaceholderColor="AntiqueWhite" TextColor="AntiqueWhite" IsPassword="True" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="3" Grid.Column="0"/>
+            <Entry x:Name="PassEntryConfirm" Placeholder="Confirm your password" PlaceholderColor="AntiqueWhite" TextColor="AntiqueWhite" IsPassword="True" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="3" Grid.Column="1"/>
+
+            <Button x:Name="BackupButton" Padding="10,0,10,0" Text="Press to backup" FontFamily="sans-serif" FontSize="15" Grid.Row="4" Grid.Column="0" Clicked="BackupButton_OnClicked" VerticalOptions="Center"/>
+            <Button x:Name="RestoreButton" Padding="10,0,10,0" Text="Press to restore" FontFamily="sans-serif" FontSize="15" Grid.Row="4" Grid.Column="1" Clicked="RestoreButton_OnClicked" VerticalOptions="Center"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
