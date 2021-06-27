@@ -85,6 +85,7 @@
       <Link>.editorconfig</Link>
     </None>
     <AndroidAotProfile Include="custom.aprof" />
+    <AndroidAsset Include="Assets\k_hosts" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
@@ -119,5 +120,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\futuro_icons.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

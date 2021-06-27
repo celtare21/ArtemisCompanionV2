@@ -38,6 +38,17 @@ namespace ArtemisCompanionV2.Droid.API
                         }
                     }
                 }
+
+                if (!File.Exists(Path.Combine(assetsFolder, "k_hosts")))
+                {
+                    using (var source = new StreamReader(androidAssets?.Open("k_hosts") ?? Stream.Null))
+                    {
+                        using (var fileStream = File.Create(Path.Combine(assetsFolder, "k_hosts")))
+                        {
+                            source.BaseStream.CopyTo(fileStream);
+                        }
+                    }
+                }
             }
         }
     }
