@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using ArtemisCompanionV2.API;
-using Plugin.FilePicker;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace ArtemisCompanionV2.Pages
     public partial class ConfigPage
     {
         public static bool BlurEnabled { get; private set; }
-        private static bool _flashValue;
+        public static bool IsSuEnabled { get; private set; } = true;
 
         public ConfigPage() =>
             InitializeComponent();
@@ -22,61 +23,34 @@ namespace ArtemisCompanionV2.Pages
             DnsPick.Margin = new Thickness(33, 15, 20, 0);
             DnsPick.SelectedIndex = Convert.ToInt32(File.ReadAllText(FileHandler.DnsFile));
 
-            FlashToggle.IsToggled = Convert.ToBoolean(Convert.ToInt32(File.ReadAllText(FileHandler.FlashFile)));
             BlurToggle.IsToggled = Convert.ToBoolean(Convert.ToInt32(File.ReadAllText(FileHandler.BlurFile)));
-
-            BootImage.Text = File.Exists(FileHandler.BootFile) ? "Boot.img found!" : "File not found!";
 
             try
             {
-                DependencyService.Get<IListener>().TestSu();
+                DependencyService.Get<ISuHandler>().TestSu();
             }
             catch
             {
                 KillSuButton.IsEnabled = false;
                 StartSuButton.IsEnabled = true;
+                IsSuEnabled = false;
             }
-
-            FlashToggle.IsToggled = _flashValue;
         }
 
         private async void DnsPick_OnSelectedIndexChanged(object sender, EventArgs e) =>
-            await File.WriteAllTextAsync(FileHandler.DnsFile, DnsPick.SelectedIndex.ToString());
-
-        private async void FlashToggle_OnToggled(object sender, ToggledEventArgs e)
-        {
-            if (FlashToggle.IsToggled && !File.Exists(FileHandler.BootFile))
-            {
-                FlashToggle.IsToggled = false;
-                await DisplayAlert("Error", "Please choose a file before toggling this on!", "Exit");
-                return;
-            }
-
-            await File.WriteAllTextAsync(FileHandler.FlashFile, Convert.ToInt32(e.Value).ToString());
-
-            if (e.Value)
-                Helpers.HelperMethods.ShowToast("Please reboot now!");
-        }
+            await File.WriteAllTextAsync(FileHandler.DnsFile, DnsPick.SelectedIndex.ToString()).ConfigureAwait(false);
 
         private async void PickButton_OnPressed(object sender, EventArgs e)
         {
-            var userFile = await CrossFilePicker.Current.PickFile();
+            var fileResult = await FilePicker.PickAsync();
 
-            if (userFile == null)
+            if (fileResult == null)
                 return;
 
-            var filePath = userFile.FilePath;
+            var filePath = fileResult.FullPath;
 
-            if (filePath.Contains("content://"))
+            if (!fileResult.FileName.Contains(".img"))
             {
-                LabelFilePicker.Text = "No file selected!";
-                await DisplayAlert("Error!", "Please select a file from internal storage!", "OK");
-                return;
-            }
-
-            if (!userFile.FileName.Contains(".img"))
-            {
-                LabelFilePicker.Text = "No file selected!";
                 await DisplayAlert("Error!", "Please select a file with the .img extention!", "OK");
                 return;
             }
@@ -84,8 +58,7 @@ namespace ArtemisCompanionV2.Pages
             File.Delete(FileHandler.BootFile);
             File.Copy(filePath, FileHandler.BootFile);
 
-            LabelFilePicker.Text = "File selected!";
-            BootImage.Text = "Boot.img found!";
+            await FlashAndRebootTask().ConfigureAwait(false);
         }
 
         private async void BlurToggle_OnToggled(object sender, ToggledEventArgs e)
@@ -102,27 +75,32 @@ namespace ArtemisCompanionV2.Pages
 
         private void StartSuButton_OnPressed(object sender, EventArgs e)
         {
-            DependencyService.Get<IListener>().StartSu();
+            DependencyService.Get<ISuHandler>().StartSu();
 
             StartSuButton.IsEnabled = false;
             KillSuButton.IsEnabled = true;
+            IsSuEnabled = true;
         }
 
         private void KillSuButton_OnPressed(object sender, EventArgs e)
         {
-            DependencyService.Get<IListener>().KillSu();
+            DependencyService.Get<ISuHandler>().KillSu();
 
             KillSuButton.IsEnabled = false;
             StartSuButton.IsEnabled = true;
+            IsSuEnabled = false;
         }
 
-        public static async void FlashOn()
+        public static async void FlashOn() =>
+            await FlashAndRebootTask().ConfigureAwait(false);
+
+        private static async Task FlashAndRebootTask()
         {
-            await File.WriteAllTextAsync(FileHandler.FlashFile, "1");
-
-            _flashValue = true;
-
-            await Application.Current.MainPage.DisplayAlert("Artemis", "Please reboot!", "OK");
+            DependencyService.Get<IFlasherHandler>().FlashImage();
+            await Task.Delay(250);
+            DependencyService.Get<IOsHandler>().SyncFs();
+            await Task.Delay(250);
+            DependencyService.Get<IOsHandler>().RebootOs();
         }
     }
 }

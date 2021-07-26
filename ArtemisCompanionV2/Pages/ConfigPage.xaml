@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArtemisCompanionV2.Pages.ConfigPage">
+             x:Class="ArtemisCompanionV2.Pages.ConfigPage"
+             Title="Configs">
     <ContentPage.Content>
         <Grid Padding="10,20,10,20">
             <Grid.ColumnDefinitions>
@@ -10,16 +11,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="65"/>
-                <RowDefinition Height="65"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="90"/>
             </Grid.RowDefinitions>
 
-            <Label Text="DNS Profile:" Padding="10,25,10,20" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <Picker x:Name="DnsPick" Margin="0,15,0,0" Title="File not found!" HorizontalOptions="CenterAndExpand" SelectedIndexChanged="DnsPick_OnSelectedIndexChanged" FontSize="17" Grid.Row="0" Grid.Column="2" TitleColor="AntiqueWhite">
+            <Label Text="DNS Profile:" Padding="10,25,10,20" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <Picker x:Name="DnsPick" Margin="0,15,0,0" Title="File not found!" HorizontalOptions="CenterAndExpand" SelectedIndexChanged="DnsPick_OnSelectedIndexChanged" FontSize="17" Grid.Row="1" Grid.Column="2" TitleColor="AntiqueWhite">
                 <Picker.Items>
                     <x:String>Disabled</x:String>
                     <x:String>AdGuard</x:String>
@@ -27,21 +27,14 @@
                 </Picker.Items>
             </Picker>
 
-            <Label Text="Flasher Enabled:" Padding="10,37,10,10" FontSize="13" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-            <Switch x:Name="FlashToggle" Margin="0,17,47,0" IsToggled="False" OnColor="#CDD3DF" Toggled="FlashToggle_OnToggled" Grid.Row="1" Grid.Column="2"/>
+            <Label Text="Image picker:" Padding="10,44,10,20" FontSize="16" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <Button Text="Pick" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="PickButton_OnPressed" Grid.Row="2" Grid.Column="2"/>
 
-            <Label Text="Boot image:" Padding="10,35,10,0" FontSize="16" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-            <Label x:Name="BootImage" Text="File not found!" Padding="10,43,10,0" FontSize="13" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+            <Label Text="Blur Enabled:" Padding="10,30,10,10" FontSize="15" HorizontalTextAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+            <Switch x:Name="BlurToggle" Margin="10,33,10,0" IsToggled="False" OnColor="#CDD3DF" Toggled="BlurToggle_OnToggled" Grid.Row="3" Grid.Column="2"/>
 
-            <Label Text="Image picker:" Padding="10,44,10,20" FontSize="16" HorizontalTextAlignment="Center" Grid.Row="3" Grid.Column="0"/>
-            <Button x:Name="PickButton" Text="Pick" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="PickButton_OnPressed" Grid.Row="3" Grid.Column="1"/>
-            <Label x:Name="LabelFilePicker" Text="No file selected!" Padding="10,45,10,0" FontSize="15" HorizontalTextAlignment="Center" Grid.Row="3" Grid.Column="2"/>
-
-            <Label Text="Blur Enabled:" Padding="10,30,10,10" FontSize="15" HorizontalTextAlignment="Center" Grid.Row="4" Grid.Column="0"/>
-            <Switch x:Name="BlurToggle" Margin="0,17,47,0" IsToggled="False" OnColor="#CDD3DF" Toggled="BlurToggle_OnToggled" Grid.Row="4" Grid.Column="2"/>
-
-            <Button x:Name="StartSuButton" IsEnabled="False" Text="Start SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" Pressed="StartSuButton_OnPressed" HorizontalOptions="Center" Grid.Row="5" Grid.Column="0"/>
-            <Button x:Name="KillSuButton" Text="Kill SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="KillSuButton_OnPressed" Grid.Row="5" Grid.Column="2"/>
+            <Button x:Name="StartSuButton" IsEnabled="False" Text="Start SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" Pressed="StartSuButton_OnPressed" HorizontalOptions="Center" Grid.Row="4" Grid.Column="0"/>
+            <Button x:Name="KillSuButton" Text="Kill SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="KillSuButton_OnPressed" Grid.Row="4" Grid.Column="2"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

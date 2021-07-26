@@ -8,42 +8,32 @@ namespace ArtemisCompanionV2.Droid.API
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public static class AssetHandler
     {
-        public static void CopyAssets()
+        private static readonly string AssetsFolder;
+
+        static AssetHandler()
         {
             var appFolder = Xamarin.Essentials.FileSystem.AppDataDirectory;
-            var assetsFolder = Path.Combine(appFolder, "assets");
 
-            Directory.CreateDirectory(assetsFolder);
+            AssetsFolder = Path.Combine(appFolder, "assets");
+            Directory.CreateDirectory(AssetsFolder);
+        }
 
+        public static void CopyAssets()
+        {
+            CopyFileToPath("cbackup.sh");
+            CopyFileToPath("resetprop");
+            CopyFileToPath("k_hosts");
+        }
+
+        private static void CopyFileToPath(string fileName)
+        {
             using (var androidAssets = Android.App.Application.Context.Assets)
             {
-                if (!File.Exists(Path.Combine(assetsFolder, "cbackup.sh")))
+                if (!File.Exists(Path.Combine(AssetsFolder, fileName)))
                 {
-                    using (var source = new StreamReader(androidAssets?.Open("cbackup.sh") ?? Stream.Null))
+                    using (var source = new StreamReader(androidAssets?.Open(fileName) ?? Stream.Null))
                     {
-                        using (var fileStream = File.Create(Path.Combine(assetsFolder, "cbackup.sh")))
-                        {
-                            source.BaseStream.CopyTo(fileStream);
-                        }
-                    }
-                }
-
-                if (!File.Exists(Path.Combine(assetsFolder, "resetprop")))
-                {
-                    using (var source = new StreamReader(androidAssets?.Open("resetprop") ?? Stream.Null))
-                    {
-                        using (var fileStream = File.Create(Path.Combine(assetsFolder, "resetprop")))
-                        {
-                            source.BaseStream.CopyTo(fileStream);
-                        }
-                    }
-                }
-
-                if (!File.Exists(Path.Combine(assetsFolder, "k_hosts")))
-                {
-                    using (var source = new StreamReader(androidAssets?.Open("k_hosts") ?? Stream.Null))
-                    {
-                        using (var fileStream = File.Create(Path.Combine(assetsFolder, "k_hosts")))
+                        using (var fileStream = File.Create(Path.Combine(AssetsFolder, fileName)))
                         {
                             source.BaseStream.CopyTo(fileStream);
                         }

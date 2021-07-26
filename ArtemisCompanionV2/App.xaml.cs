@@ -69,7 +69,7 @@ namespace ArtemisCompanionV2
             await Current.MainPage.DisplayAlert("Artemis",
                 "Please read the 'About Features' section before doing anything!", "OK");
             await Current.MainPage.DisplayAlert("Artemis",
-                "Please reboot after you make a change to take effect.", "OK");
+                "Please reboot after you make a change to take effect.", "OK").ConfigureAwait(false);
         }
 
         private static void App_OnFileDownloaded(object sender, DownloadEventArgs e)

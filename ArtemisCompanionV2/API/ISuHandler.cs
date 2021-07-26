@@ -1,6 +1,6 @@
 ﻿namespace ArtemisCompanionV2.API
 {
-    public interface IListener
+    public interface ISuHandler
     {
         void KillSu();
         void StartSu();
