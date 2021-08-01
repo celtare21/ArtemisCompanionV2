@@ -1,9 +1,11 @@
-﻿namespace ArtemisCompanionV2.API
+﻿using System.Threading.Tasks;
+
+namespace ArtemisCompanionV2.API
 {
     public interface ISuHandler
     {
-        void KillSu();
-        void StartSu();
-        void TestSu();
+        Task KillSu(bool shouldExit = false);
+        Task StartSu(bool shouldExit = false);
+        Task<bool> TestSu();
     }
 }

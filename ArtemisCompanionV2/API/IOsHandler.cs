@@ -1,8 +1,10 @@
-﻿namespace ArtemisCompanionV2.API
+﻿using System.Threading.Tasks;
+
+namespace ArtemisCompanionV2.API
 {
     public interface IOsHandler
     {
-        void RebootOs();
-        void SyncFs();
+        Task RebootOs();
+        Task SyncFs();
     }
 }

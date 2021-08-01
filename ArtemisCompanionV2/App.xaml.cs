@@ -6,6 +6,7 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System.IO;
 using System.Threading.Tasks;
+using Android.OS;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using PermissionStatus = Plugin.Permissions.Abstractions.PermissionStatus;
@@ -23,6 +24,8 @@ namespace ArtemisCompanionV2
 
         protected override async void OnStart()
         {
+            StrictMode.AllowThreadDiskReads();
+            StrictMode.AllowThreadDiskWrites();
             await CheckPermissionsAsync();
             await WaitDriverAsync();
             await FirstLaunchInfo();
@@ -72,12 +75,12 @@ namespace ArtemisCompanionV2
                 "Please reboot after you make a change to take effect.", "OK").ConfigureAwait(false);
         }
 
-        private static void App_OnFileDownloaded(object sender, DownloadEventArgs e)
+        private static async void App_OnFileDownloaded(object sender, DownloadEventArgs e)
         {
             if (e.FileSaved)
             {
-                ConfigPage.FlashOn();
                 HelperMethods.ShowAlert("File downloaded succesfully!");
+                await ConfigPage.FlashOn(UpdatePage.ImgPath);
             }
             else
             {

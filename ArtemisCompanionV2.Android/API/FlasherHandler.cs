@@ -1,6 +1,6 @@
-﻿using ArtemisCompanionV2.API;
+﻿using System.Threading.Tasks;
+using ArtemisCompanionV2.API;
 using ArtemisCompanionV2.Droid.API;
-using ArtemisCompanionV2.Pages;
 using Java.Lang;
 using Xamarin.Forms;
 
@@ -10,21 +10,18 @@ namespace ArtemisCompanionV2.Droid.API
 {
     public class FlasherHandler : ProcessBase, IFlasherHandler
     {
-        public void FlashImage()
+        public async Task FlashImage()
         {
-            if (!ConfigPage.IsSuEnabled)
-                DependencyService.Get<ISuHandler>().StartSu();
-
-            FlashPartition("a");
-            FlashPartition("b");
+            await FlashPartition("a");
+            await FlashPartition("b").ConfigureAwait(false);
         }
 
-        private void FlashPartition(string partition)
+        private static async Task FlashPartition(string partition)
         {
             using (var builder = new ProcessBuilder("/system/bin/su", "-c",
                 $"/system/bin/dd if=/data/user/0/com.kaname.artemiscompanion/files/boot.img of=/dev/block/bootdevice/by-name/boot_{partition}"))
             {
-                StartProcess(builder);
+                await StartProcessAsync(builder);
             }
         }
     }

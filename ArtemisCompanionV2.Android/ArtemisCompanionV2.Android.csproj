@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="API\AssetHandler.cs" />
     <Compile Include="API\FlasherHandler.cs" />
+    <Compile Include="API\GammaHandler.cs" />
     <Compile Include="API\OsHandler.cs" />
     <Compile Include="API\ProcessBase.cs" />
     <Compile Include="API\SuHandler.cs" />

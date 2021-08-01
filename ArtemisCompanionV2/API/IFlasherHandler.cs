@@ -1,7 +1,9 @@
-﻿namespace ArtemisCompanionV2.API
+﻿using System.Threading.Tasks;
+
+namespace ArtemisCompanionV2.API
 {
     public interface IFlasherHandler
     {
-        void FlashImage();
+        Task FlashImage();
     }
 }

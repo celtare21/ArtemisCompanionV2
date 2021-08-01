@@ -16,6 +16,7 @@
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="90"/>
+                <RowDefinition Height="90"/>
             </Grid.RowDefinitions>
 
             <Label Text="DNS Profile:" Padding="10,25,10,20" FontSize="17" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0"/>
@@ -35,6 +36,9 @@
 
             <Button x:Name="StartSuButton" IsEnabled="False" Text="Start SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" Pressed="StartSuButton_OnPressed" HorizontalOptions="Center" Grid.Row="4" Grid.Column="0"/>
             <Button x:Name="KillSuButton" Text="Kill SU" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="KillSuButton_OnPressed" Grid.Row="4" Grid.Column="2"/>
+
+            <Button x:Name="EnableGammaHackButton" Text="Enable Gamma Hack" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" Pressed="EnableGammaHackButton_OnPressed" HorizontalOptions="Center" Grid.Row="5" Grid.Column="0"/>
+            <Button x:Name="DisableGammaHackButton" IsEnabled="False" Text="Disable Gamma Hack" Margin="10,33,10,0" FontSize="16" VerticalOptions="Start" HorizontalOptions="Center" Pressed="DisableGammaHackButton_OnPressed" Grid.Row="5" Grid.Column="2"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

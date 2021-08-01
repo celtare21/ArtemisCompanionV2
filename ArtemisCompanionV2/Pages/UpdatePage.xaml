@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="DownloadButton" Padding="10,0,10,0" Text="Press to download" FontFamily="sans-serif" FontSize="15" Pressed="DownloadButton_OnPressed" Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand"/>
-            <Entry x:Name="PinEntry" Placeholder="Enter your pin here" PlaceholderColor="AntiqueWhite" TextColor="AntiqueWhite" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+            <Entry x:Name="PinEntry" Placeholder="Enter your pin here" PlaceholderColor="Black" TextColor="Black" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

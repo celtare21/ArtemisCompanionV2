@@ -12,29 +12,24 @@ namespace ArtemisCompanionV2.Pages
     public partial class ConfigPage
     {
         public static bool BlurEnabled { get; private set; }
-        public static bool IsSuEnabled { get; private set; } = true;
+        private bool _suEnabled;
 
         public ConfigPage() =>
             InitializeComponent();
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             DnsPick.Title = "DNS Profile";
             DnsPick.Margin = new Thickness(33, 15, 20, 0);
-            DnsPick.SelectedIndex = Convert.ToInt32(File.ReadAllText(FileHandler.DnsFile));
+            DnsPick.SelectedIndex = Convert.ToInt32(await File.ReadAllTextAsync(FileHandler.DnsFile));
 
-            BlurToggle.IsToggled = Convert.ToBoolean(Convert.ToInt32(File.ReadAllText(FileHandler.BlurFile)));
+            BlurToggle.IsToggled = Convert.ToBoolean(Convert.ToInt32(await File.ReadAllTextAsync(FileHandler.BlurFile)));
 
-            try
-            {
-                DependencyService.Get<ISuHandler>().TestSu();
-            }
-            catch
-            {
-                KillSuButton.IsEnabled = false;
-                StartSuButton.IsEnabled = true;
-                IsSuEnabled = false;
-            }
+            if (await DependencyService.Get<ISuHandler>().TestSu())
+                return;
+
+            KillSuButton.IsEnabled = false;
+            StartSuButton.IsEnabled = true;
         }
 
         private async void DnsPick_OnSelectedIndexChanged(object sender, EventArgs e) =>
@@ -55,10 +50,7 @@ namespace ArtemisCompanionV2.Pages
                 return;
             }
 
-            File.Delete(FileHandler.BootFile);
-            File.Copy(filePath, FileHandler.BootFile);
-
-            await FlashAndRebootTask().ConfigureAwait(false);
+            await FlashAndRebootTask(filePath).ConfigureAwait(false);
         }
 
         private async void BlurToggle_OnToggled(object sender, ToggledEventArgs e)
@@ -73,34 +65,62 @@ namespace ArtemisCompanionV2.Pages
             BlurEnabled = e.Value;
         }
 
-        private void StartSuButton_OnPressed(object sender, EventArgs e)
+        private async void StartSuButton_OnPressed(object sender, EventArgs e)
         {
-            DependencyService.Get<ISuHandler>().StartSu();
+            await DependencyService.Get<ISuHandler>().StartSu();
 
             StartSuButton.IsEnabled = false;
             KillSuButton.IsEnabled = true;
-            IsSuEnabled = true;
+            _suEnabled = true;
         }
 
-        private void KillSuButton_OnPressed(object sender, EventArgs e)
+        private async void KillSuButton_OnPressed(object sender, EventArgs e)
         {
-            DependencyService.Get<ISuHandler>().KillSu();
+            await DependencyService.Get<ISuHandler>().KillSu();
 
             KillSuButton.IsEnabled = false;
             StartSuButton.IsEnabled = true;
-            IsSuEnabled = false;
+            _suEnabled = false;
         }
 
-        public static async void FlashOn() =>
-            await FlashAndRebootTask().ConfigureAwait(false);
-
-        private static async Task FlashAndRebootTask()
+        private async void EnableGammaHackButton_OnPressed(object sender, EventArgs e)
         {
-            DependencyService.Get<IFlasherHandler>().FlashImage();
-            await Task.Delay(250);
-            DependencyService.Get<IOsHandler>().SyncFs();
-            await Task.Delay(250);
-            DependencyService.Get<IOsHandler>().RebootOs();
+            await DependencyService.Get<ISuHandler>().StartSu(_suEnabled);
+            await DependencyService.Get<IGammaHandler>().EnableGammaHack();
+            await DependencyService.Get<ISuHandler>().KillSu(_suEnabled);
+
+            EnableGammaHackButton.IsEnabled = false;
+            DisableGammaHackButton.IsEnabled = true;
+        }
+
+        private async void DisableGammaHackButton_OnPressed(object sender, EventArgs e)
+        {
+            await DependencyService.Get<ISuHandler>().StartSu(_suEnabled);
+            await DependencyService.Get<IGammaHandler>().DisableGammaHack();
+            await DependencyService.Get<ISuHandler>().KillSu(_suEnabled);
+
+            EnableGammaHackButton.IsEnabled = true;
+            DisableGammaHackButton.IsEnabled = false;
+        }
+
+        public static Task FlashOn(string path) =>
+            FlashAndRebootTask(path);
+
+        private static async Task FlashAndRebootTask(string path)
+        {
+            CopyNewBoot(path);
+
+            await DependencyService.Get<ISuHandler>().StartSu();
+            await DependencyService.Get<IFlasherHandler>().FlashImage();
+            await DependencyService.Get<IOsHandler>().SyncFs();
+            await DependencyService.Get<IOsHandler>().RebootOs();
+            await DependencyService.Get<ISuHandler>().KillSu().ConfigureAwait(false);
+        }
+
+        private static void CopyNewBoot(string path)
+        {
+            File.Delete(FileHandler.BootFile);
+            File.Copy(path, FileHandler.BootFile);
         }
     }
 }
